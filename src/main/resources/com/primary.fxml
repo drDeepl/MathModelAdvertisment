@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.XYChart?>
+
+<VBox alignment="CENTER" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.PrimaryController">
+   <children>
+      <Label text="Общее число покупателей" />
+      <TextField id="N0" fx:id="N0" maxWidth="100"/>
+      <Label text="Показатель эффективности основной рекламы" />
+      <TextField id="a1" fx:id="a1" maxWidth="100"/>
+      <Label text="Показатель эффективности косвенной рекламы" />
+      <TextField id="a2" fx:id="a2" maxWidth="100"/>
+      <Label text="Шаг для решения дифференциального уравнения" />
+      <TextField id="h" fx:id="h" maxWidth="100"/> 
+      <Button fx:id="calculateBtn" text="Рассчитать" onAction="#calculateAdvertCampany"/>
+      <Label fx:id="msg" />
+      <LineChart fx:id="lineChart" layoutY="50.0" prefHeight="300.0" prefWidth="500.0" visible="false">
+         <xAxis>
+            <NumberAxis label="t" />                          
+         </xAxis>
+         <yAxis>
+            <NumberAxis label="N(t)" />
+         </yAxis>
+      </LineChart>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>
