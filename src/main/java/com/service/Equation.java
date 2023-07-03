@@ -26,6 +26,19 @@ public class Equation{
         return t;
     }
 
+    public double analyticSolver(int t){
+        double a = a1 + a2*N0; 
+        double step1 = a2/(a);
+        double step2 = Math.exp(a*t);
+        double step3 = step1*step2;
+        double step4 = a2/a;
+        double step5 = step3 - step4;
+        double result = 1/step5;
+        return result;
+
+
+    }
+
     public float[] SolveEquationRungeKutta4(int[] t, float h){
         float[] N = new float[t.length];
         N[0] = apply0(0);

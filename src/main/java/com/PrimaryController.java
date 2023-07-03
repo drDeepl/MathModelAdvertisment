@@ -78,24 +78,37 @@ public class PrimaryController {
             Utils utils = new Utils();
             utils.printArrayFloat(N);
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
+            String msgResult = "";
+            int endTime = 0;
             for(int i = 0; i < N.length; i++){
                int NValue = Math.round(N[i]) +1;
-               if(i-1 != 0){
+            //    if(NValue < 0){
+            //     break;
+            //    }
+               if(i!= 0){
                 if(NValue == Math.round(N[i-1] +1)){
                     break;
                    }
                }
                System.out.println(NValue);
                if(NValue == N0Int){
-                String msqResult = "Рекламная кампания потеряет свою эффективность через " + i + " дней";
-                timeForEndAdvertCompaign.setText(msqResult);
-                System.out.println(msqResult);
+                msgResult += "Рекламная кампания потеряет свою эффективность через " + i + " дней";
+                
                 break;
                 
                }
+               
                series.getData().add(new XYChart.Data<>(t[i], NValue));
+               endTime ++;
             }
-            series.setName("Дни");
+            
+            if(msgResult.isEmpty()){
+                
+                msgResult += "\nЗа " + endTime + " дней " + "рекламная кампания охватит " + Math.round(N[N.length-1]) + " из " + N0.getText() + " платежеспособных покупателей";
+            }
+            System.out.println(equation.analyticSolver(endTime));
+            timeForEndAdvertCompaign.setText(msgResult);
+            series.setName("Осведомленные о товаре");
 
             lineChart.visibleProperty().set(true);
             lineChart.getData().add(series);
