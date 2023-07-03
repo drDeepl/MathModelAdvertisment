@@ -19,8 +19,12 @@
       <TextField id="a2" fx:id="a2" maxWidth="100"/>
       <Label text="Шаг для решения дифференциального уравнения" />
       <TextField id="h" fx:id="h" maxWidth="100"/> 
+      <Label text="Длительность рекламной кампании в днях" />
+      <TextField id="tn" fx:id="tn" maxWidth="100"/> 
       <Button fx:id="calculateBtn" text="Рассчитать" onAction="#calculateAdvertCampany"/>
-      <Label fx:id="msg" />
+      <Button fx:id="clearBtn" text="Очистить форму" onAction="#clearData"/>
+      <Label fx:id="timeForEndAdvertCompaign" maxHeight="300"/>
+      <Label fx:id="msg" maxHeight="300"/>
       <LineChart fx:id="lineChart" layoutY="50.0" prefHeight="300.0" prefWidth="500.0" visible="false">
          <xAxis>
             <NumberAxis label="t" />                          
@@ -29,6 +33,7 @@
             <NumberAxis label="N(t)" />
          </yAxis>
       </LineChart>
+      
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

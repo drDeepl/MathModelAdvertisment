@@ -30,12 +30,14 @@ public class Equation{
         float[] N = new float[t.length];
         N[0] = apply0(0);
         System.out.println("N(0) = " + N[0]);
+        
         for(int i = 0; i < t.length-1; i++){
             float k1 = apply(t[i], N[i]);
             float k2 = apply((t[i]+ h/2), N[i] + h/2*k1);
             float k3 = apply((t[i]+ h/2), N[i] + h/2*k2);
             float k4 = apply(t[i]+h, N[i] + h*k3);
             N[i+1] = N[i] + (h/6 *(k1+2*k2+2*k3 + k4));
+            
         }
         return N;
     }

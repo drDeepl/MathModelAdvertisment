@@ -18,8 +18,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 1280, 720);
-        stage.setScene(scene);    
+        scene = new Scene(loadFXML("primary"), 720, 720);
+        stage.setScene(scene);   
+        stage.setTitle("Моделирование эффективности рекламной кампании"); 
         
         stage.show();
     }

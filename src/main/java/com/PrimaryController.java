@@ -19,7 +19,9 @@ public class PrimaryController {
     @FXML TextField a1;
     @FXML TextField a2;
     @FXML TextField h;
+    @FXML TextField tn;
     @FXML Label msg;
+    @FXML Label timeForEndAdvertCompaign;
     @FXML LineChart<Number,Number> lineChart;
     
 
@@ -33,7 +35,9 @@ public class PrimaryController {
         // System.out.println(N0.getText() + "\n" + a1.getText() + "\n" + a2.getText());
         
         lineChart.getData().clear();
+        lineChart.visibleProperty().set(false);
         msg.setText("");
+        timeForEndAdvertCompaign.setText("");
         String message = "Не является числом поле:\n";
         boolean dataNotValid = false;
         String checkNumber = "-?\\d+(\\.\\d+)?";
@@ -55,6 +59,10 @@ public class PrimaryController {
             message += "\tШаг для решения дифференциального уравнения\n";
             dataNotValid = true;
         }
+        if(!Pattern.matches(checkNumber, tn.getText())){
+            message += "\tДлительность рекламной кампании\n";
+            dataNotValid = true;
+        }
         if(dataNotValid){
             msg.setText(message);
         }
@@ -63,22 +71,49 @@ public class PrimaryController {
             float a1Float = Float.parseFloat(a1.getText());
             float a2Float = Float.parseFloat(a2.getText());
             float hFloat = Float.parseFloat(h.getText());
+            int tnInt = Integer.parseInt(tn.getText());
             Equation equation = new Equation(a1Float, a2Float, N0Int);
-            int[] t = equation.createArrayT(100);
+            int[] t = equation.createArrayT(tnInt);
             float[] N = equation.SolveEquationRungeKutta4(t, hFloat);
             Utils utils = new Utils();
             utils.printArrayFloat(N);
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
             for(int i = 0; i < N.length; i++){
-               int NValue = Math.round(N[i]);
-               
-                series.getData().add(new XYChart.Data<>(t[i], NValue));
+               int NValue = Math.round(N[i]) +1;
+               if(i-1 != 0){
+                if(NValue == Math.round(N[i-1] +1)){
+                    break;
+                   }
+               }
+               System.out.println(NValue);
+               if(NValue == N0Int){
+                String msqResult = "Рекламная кампания потеряет свою эффективность через " + i + " дней";
+                timeForEndAdvertCompaign.setText(msqResult);
+                System.out.println(msqResult);
+                break;
+                
+               }
+               series.getData().add(new XYChart.Data<>(t[i], NValue));
             }
-            series.setName("Data");
+            series.setName("Дни");
+
             lineChart.visibleProperty().set(true);
             lineChart.getData().add(series);
             
         }
+    }
+
+    @FXML
+    private void clearData() throws Exception{
+        a1.setText("");
+        a2.setText("");
+        h.setText("");
+        tn.setText("");
+        N0.setText("");
+        lineChart.visibleProperty().set(false);
+        msg.setText("");
+        timeForEndAdvertCompaign.setText("");
+
     }
 
     @FXML
